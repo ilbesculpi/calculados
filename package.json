@@ -1,0 +1,38 @@
+{
+  "name": "calculados",
+  "version": "0.3.0",
+  "description": "Calculadora Precios",
+  "productName": "CalculaDos",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . CalculaDos --platform=mas,win32 --arch=x64 --out=dist",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --mac --win",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ilbert Esculpi",
+  "license": "ISC",
+  "build": {
+    "appId": "com.ilbesculpi.calculados",
+    "mac": {
+      "category": "public.app-category.finance",
+      "target": "default"
+    },
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "dependencies": {
+    "bootstrap": "^4.5.0",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1",
+    "toastr": "^2.1.4"
+  },
+  "devDependencies": {
+    "electron": "^9.0.5",
+    "electron-builder": "^22.7.0",
+    "electron-packager": "^15.0.0"
+  }
+}

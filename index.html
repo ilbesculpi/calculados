@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Calculadora Precios</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="node_modules/toastr/build/toastr.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script>
+    let $ = require('jquery');
+    require('popper.js');
+    require('bootstrap');
+    let toastr = require('toastr');
+    </script>
+  </head>
+  <body>
+
+    <div id="page" class="container-fluid bg-dark">
+
+      <div class="text-center">
+        <h1>Calculadora de Precios</h1>
+      </div>
+
+      <form>
+
+        <fieldset>
+          <h3>Factura</h3>
+          <div class="form-group row">
+            <div class="col-5 text-right">
+              <label for="price" class="control-label">Precio Factura</label>
+            </div>
+            <div class="col">
+              <input type="number" id="price" class="form-control" pattern="[0-9]*">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-5 text-right">
+              <label for="quantity">Cantidad</label>
+            </div>
+            <div class="col">
+              <input type="number" id="quantity" class="form-control" value="1" min="1">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <h3>Impuesto</h3>
+          <div class="row">
+            <div class="col-5 text-right">
+              <label>¿Excento de impuesto?</label>
+            </div>
+            <div class="col">
+              <div class="form-check form-check-inline">
+                <input type="radio" name="taxfree" id="check-tax-yes" class="form-check-input check-tax" checked>
+                <label class="form-check-label" for="check-tax-yes">Si</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input type="radio" name="taxfree" id="check-tax-no" class="form-check-input check-tax">
+                <label class="form-check-label" for="check-tax-no">No</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-5 text-right">
+              <label for="iva">Valor del IVA (%)</label>
+            </div>
+            <div class="col">
+              <input type="number" id="iva" class="form-control" value="16" min="0" max="100" disabled>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <h3>Ganancia</h3>
+          <div class="row form-group">
+            <div class="col-5 text-right">
+              <label for="wval">Ganancia (%)</label>
+            </div>
+            <div class="col">
+              <input type="number" id="wval" class="form-control" value="45" min="0" max="200">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset id="results" class="hidden">
+
+          <h2>Resultado</h2>
+          
+          <div class="row">
+            <div class="col-5 text-right">Precio Unitario</div>
+            <div class="col">
+              <span id="unitPriceLabel">0</span>
+            </div>
+            <div class="col-auto">
+              <input type="text" id="unitPriceValue" class="noshow" value="0">
+              <a href="#" class="btn-copy" data-target="unitPriceValue">
+                <i class="fa fa-copy"></i>
+              </a>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-5 text-right">Impuesto</div>
+            <div class="col"><span id="taxesLabel">0</span></div>
+            <div class="col-auto">
+              <input type="text" id="taxesValue" class="noshow" value="0">
+              <a href="#" class="btn-copy" data-target="taxesValue">
+                <i class="fa fa-copy"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-5 text-right">Ganancia</div>
+            <div class="col"><span id="earningsLabel">0</span></div>
+            <div class="col-auto">
+              <input type="text" id="earningsValue" class="noshow" value="0">
+              <a href="#" class="btn-copy" data-target="earningsValue">
+                <i class="fa fa-copy"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-5 text-right">Precio Venta</div>
+            <div class="col"><span id="salesPriceLabel">0</span></div>
+            <div class="col-auto">
+              <input type="text" id="salesPriceValue" class="noshow" value="0">
+              <a href="#" class="btn-copy" data-target="salesPriceValue">
+                <i class="fa fa-copy"></i>
+              </a>
+            </div>
+          </div>
+
+        </fieldset>
+
+        <div class="buttons">
+          <button id="btn-calculate" type="button" class="btn btn-primary btn-block" disabled>Calcular</button>
+          <button id="btn-reset" type="button" class="btn btn-light btn-block">Borrar</button>
+        </div>
+
+      </form>
+
+    </div>
+    
+    <script src="calculator.js"></script>
+
+  </body>
+</html>
