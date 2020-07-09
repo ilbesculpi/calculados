@@ -6,9 +6,9 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . CalculaDos --platform=mas,win32 --arch=x64 --out=dist",
+    "build": "electron-packager . CalculaDos --platform=win32 --arch=ia32 --out=dist",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder --mac --win",
+    "dist": "electron-builder --win --ia32",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ilbert Esculpi",
