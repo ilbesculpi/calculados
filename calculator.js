@@ -105,10 +105,9 @@ $( document ).ready(function() {
 const calculate = (price, quantity, iva, wval) => {
     const unitPrice = price / quantity;
     const taxes = unitPrice * iva / 100.0;
-    const unitTaxes = taxes / quantity;
-    const pricePlusEarnings = (unitPrice + unitTaxes) / ((100 - wval) / 100.0);
-    const earnings = pricePlusEarnings - unitPrice - unitTaxes;
-    const salesPrice = unitPrice + unitTaxes + earnings;
+    const factor = (100.0 - wval) / 100.0;
+    const salesPrice = (unitPrice + taxes) / factor;
+    const earnings = salesPrice - (unitPrice + taxes);
     return {
         unitPrice,
         taxes,
