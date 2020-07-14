@@ -1,18 +1,13 @@
 {
   "name": "calculados",
-  "version": "0.4.0",
-  "description": "Calculadora Precios",
+  "version": "0.5.0",
+  "description": "Calculadora de Precios",
   "productName": "CalculaDos",
-  "main": "main.js",
+  "main": "electron/dist/main.js",
   "scripts": {
-    "start": "electron .",
-    "build": "electron-packager . CalculaDos --platform=win32 --arch=ia32 --out=dist",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder --win --ia32",
+    "start": "cd app && ng build --base-href ./ && cd .. && tsc --p electron && electron electron/dist/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Ilbert Esculpi",
-  "license": "ISC",
   "build": {
     "appId": "com.ilbesculpi.calculados",
     "mac": {
@@ -23,16 +18,17 @@
       "target": "nsis"
     }
   },
-  "dependencies": {
-    "bootstrap": "^4.5.0",
-    "font-awesome": "^4.7.0",
-    "jquery": "^3.5.1",
-    "popper.js": "^1.16.1",
-    "toastr": "^2.1.4"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilbesculpi/calculados.git"
   },
-  "devDependencies": {
-    "electron": "^9.0.5",
-    "electron-builder": "^22.7.0",
-    "electron-packager": "^15.0.0"
+  "author": "Ilbert Esculpi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilbesculpi/calculados/issues"
+  },
+  "homepage": "https://github.com/ilbesculpi/calculados#readme",
+  "dependencies": {
+    "electron": "^9.1.0"
   }
 }
