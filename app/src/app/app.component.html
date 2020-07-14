@@ -80,10 +80,10 @@
           <span id="unitPriceLabel">{{ results.unitPrice | formatPrice:currency }}</span>
         </div>
         <div class="col-auto">
-          <input type="text" id="unitPriceValue" class="noshow" [value]="results.unitPrice">
-          <a href="#" class="btn-copy" data-target="unitPriceValue">
+          <input type="text" id="unitPriceValue" class="noshow" [value]="results.unitPrice.toFixed(2)">
+          <button type="button" class="btn btn-link btn-copy" (click)="copyText('unitPriceValue')">
             <i class="fa fa-copy"></i>
-          </a>
+          </button>
         </div>
       </div>
 
@@ -91,21 +91,21 @@
         <div class="col-5 text-right">Impuesto</div>
         <div class="col"><span id="taxesLabel">{{ results.unitTaxes | formatPrice:currency }}</span></div>
         <div class="col-auto">
-          <input type="text" id="taxesValue" class="noshow" value="0">
-          <a href="#" class="btn-copy" data-target="taxesValue">
+          <input type="text" id="taxesValue" class="noshow" [value]="results.unitTaxes.toFixed(2)">
+          <button type="button" class="btn btn-link btn-copy" (click)="copyText('taxesValue')">
             <i class="fa fa-copy"></i>
-          </a>
+          </button>
         </div>
       </div>
 
       <div class="row">
         <div class="col-5 text-right">Ganancia</div>
-        <div class="col"><span id="earningsLabel">{{ results.productProfit | formatPrice:currency }}</span></div>
+        <div class="col"><span id="productProfitLabel">{{ results.productProfit | formatPrice:currency }}</span></div>
         <div class="col-auto">
-          <input type="text" id="earningsValue" class="noshow" value="0">
-          <a href="#" class="btn-copy" data-target="earningsValue">
+          <input type="text" id="productProfitValue" class="noshow" [value]="results.productProfit.toFixed(2)">
+          <button type="button" class="btn btn-link btn-copy" (click)="copyText('productProfitValue')">
             <i class="fa fa-copy"></i>
-          </a>
+          </button>
         </div>
       </div>
 
@@ -113,10 +113,10 @@
         <div class="col-5 text-right">Precio Venta</div>
         <div class="col"><span id="salesPriceLabel">{{ results.salesPrice | formatPrice:currency }}</span></div>
         <div class="col-auto">
-          <input type="text" id="salesPriceValue" class="noshow" value="0">
-          <a href="#" class="btn-copy" data-target="salesPriceValue">
+          <input type="text" id="salesPriceValue" class="noshow" [value]="results.salesPrice.toFixed(2)">
+          <button type="button" class="btn btn-link btn-copy" (click)="copyText('salesPriceValue')">
             <i class="fa fa-copy"></i>
-          </a>
+          </button>
         </div>
       </div>
 
