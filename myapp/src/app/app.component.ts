@@ -13,6 +13,10 @@ declare const toastr: any;
 export class AppComponent implements OnInit {
 
     form: FormGroup = new FormGroup({
+        exchangeRate: new FormControl('', [
+            Validators.min(0),
+            Validators.maxLength(10)
+        ]),
         price: new FormControl('', [
             Validators.required,
             Validators.min(0),
@@ -39,17 +43,11 @@ export class AppComponent implements OnInit {
     });
 
     displayResults: boolean = false;
-    results: CalcResults;
-    readonly currency: string = 'Bs. F.';
+    results: CalcResults[];
+    readonly currency: string = 'Bs. F. ';
 
     constructor(private calculator: CalculatorService) {
-        this.results = {
-            unitPrice: 0,
-            unitTaxes: 0,
-            factor: 0,
-            salesPrice: 0,
-            productProfit: 0,
-        }
+        this.results = [];
     }
 
     ngOnInit() {
@@ -108,6 +106,7 @@ export class AppComponent implements OnInit {
         const taxes = isTaxFree ? 0 : parseFloat( this.form.get('iva').value );
 
         const params: CalcParams = {
+            exchangeRate: parseFloat( this.form.get('exchangeRate').value ),
             price: parseFloat( this.form.get('price').value ),
             quantity: parseInt( this.form.get('quantity').value, 10 ),
             taxFree: isTaxFree,

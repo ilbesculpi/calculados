@@ -1,11 +1,14 @@
 {
   "name": "calculados",
-  "version": "0.5.0",
+  "version": "1.1.0",
   "description": "Calculadora de Precios",
   "productName": "CalculaDos",
   "main": "electron/dist/main.js",
   "scripts": {
-    "start": "cd app && ng build --base-href ./ && cd .. && tsc --p electron && electron electron/dist/main.js",
+    "start": "tsc --p electron && electron electron/dist/main.js",
+    "build": "electron-packager . CalculaDos --platform=win32 --arch=ia32 --out=dist",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --win --ia32",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "build": {
@@ -28,7 +31,10 @@
     "url": "https://github.com/ilbesculpi/calculados/issues"
   },
   "homepage": "https://github.com/ilbesculpi/calculados#readme",
-  "dependencies": {
-    "electron": "^9.1.0"
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^9.1.0",
+    "electron-builder": "^22.7.0",
+    "electron-packager": "^15.0.0"
   }
 }
