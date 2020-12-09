@@ -14,7 +14,7 @@ export class FormatPricePipe implements PipeTransform {
             maximumFractionDigits: 2
         });
 
-        return currency + ' ' + str;
+        return currency + '' + str;
     }
 
 }

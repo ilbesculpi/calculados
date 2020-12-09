@@ -5,13 +5,13 @@ fieldset {
 }
 
 h1 {
-    font-size: 1.6rem;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    font-size: 1.4rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 h2 {
-    font-size: 1.3rem;
+    font-size: 1.0rem;
     margin-top: 8px;
     margin-bottom: 8px;
     text-align: center;
@@ -19,13 +19,16 @@ h2 {
 }
 
 h3 {
-    font-size: 1.2rem;
+    font-size: 1.0rem;
     font-weight: 400;
     border-bottom: solid 1px #e6e6e6;
     margin-bottom: 8px;
     padding-bottom: 4px;
 }
 
+input[type=number] {
+    text-align: right;
+}
 
 #results {
     flex: 1;

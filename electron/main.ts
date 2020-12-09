@@ -8,7 +8,7 @@ let win: BrowserWindow;
 function createWindow() {
 
     win = new BrowserWindow({
-        width: 380,
+        width: 400,
         height: 660,
         webPreferences: {
             nodeIntegration: false
@@ -17,13 +17,13 @@ function createWindow() {
 
     win.loadURL(
         url.format({
-            pathname: path.join(__dirname, `../../app/dist/CalculaDos/index.html`),
-            protocol: 'file:',
+            pathname: path.join(__dirname, `../app/index.html`),
+            protocol: 'file',
             slashes: true
         })
     );
 
-    // win.webContents.openDevTools();
+    //win.webContents.openDevTools();
 
     win.on('closed', () => {
         win = null;

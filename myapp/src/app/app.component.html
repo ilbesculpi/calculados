@@ -7,6 +7,19 @@
   <form [formGroup]="form" (ngSubmit)="calculate()">
 
     <fieldset>
+      <h3>Tasa USD</h3>
+      <div class="form-group row">
+        <div class="col-5 text-right">
+          <label for="exchangeRate" class="control-label">Tasa USD</label>
+        </div>
+        <div class="col">
+        <input type="number" id="exchangeRate" class="form-control form-control-sm"
+            formControlName="exchangeRate" pattern="[0-9]+(\.)?[0-9]*">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
       <h3>Factura</h3>
       <div class="form-group row">
         <div class="col-5 text-right">
@@ -14,7 +27,7 @@
         </div>
         <div class="col">
           <input type="number" id="price" class="form-control form-control-sm"
-            formControlName="price" pattern="[0-9]*" required>
+            formControlName="price" pattern="[0-9]+(\.)?[0-9]*" required>
         </div>
       </div>
       <div class="form-group row">
@@ -36,13 +49,13 @@
         </div>
         <div class="col">
           <div class="form-check form-check-inline">
-            <input type="radio" id="check-tax-yes" class="form-check-input check-tax"
-                formControlName="taxFree" (change)="toggleTaxFree(true)" value="true">
+            <input type="radio" id="check-tax-yes" class="form-check-input check-tax" formControlName="taxFree"
+              (change)="toggleTaxFree(true)" value="true">
             <label class="form-check-label" for="check-tax-yes">Si</label>
           </div>
           <div class="form-check form-check-inline">
-            <input type="radio" id="check-tax-no" class="form-check-input check-tax"
-                formControlName="taxFree" (change)="toggleTaxFree(false)" value="false">
+            <input type="radio" id="check-tax-no" class="form-check-input check-tax" formControlName="taxFree"
+              (change)="toggleTaxFree(false)" value="false">
             <label class="form-check-label" for="check-tax-no">No</label>
           </div>
         </div>
@@ -52,8 +65,7 @@
           <label for="iva">Valor del IVA (%)</label>
         </div>
         <div class="col">
-          <input type="number" id="iva" class="form-control form-control-sm"
-            formControlName="iva">
+          <input type="number" id="iva" class="form-control form-control-sm" formControlName="iva">
         </div>
       </div>
     </fieldset>
@@ -62,25 +74,26 @@
       <h3>Ganancia</h3>
       <div class="row form-group">
         <div class="col-5 text-right">
-          <label for="wval">Ganancia (%)</label>
+          <label for="profit">Ganancia (%)</label>
         </div>
         <div class="col">
-          <input type="number" id="wval" class="form-control form-control-sm" value="45" min="0" max="200">
+          <input type="number" id="profit" class="form-control form-control-sm" formControlName="profit">
         </div>
       </div>
     </fieldset>
 
-    <fieldset id="results" [class.hidden]="!displayResults">
+    <fieldset id="results" [class.hidden]="!displayResults" *ngIf="displayResults">
 
       <h2>Resultado</h2>
 
       <div class="row">
         <div class="col-5 text-right">Precio Unitario</div>
         <div class="col">
-          <span id="unitPriceLabel">{{ results.unitPrice | formatPrice:currency }}</span>
+          <span id="unitPriceLabel">{{ results[0].unitPrice | formatPrice:currency }}</span>
+          <span *ngIf="results[1]">({{ results[1].unitPrice | formatPrice:'$' }})</span>
         </div>
         <div class="col-auto">
-          <input type="text" id="unitPriceValue" class="noshow" [value]="results.unitPrice.toFixed(2)">
+          <input type="text" id="unitPriceValue" class="noshow" [value]="results[0].unitPrice.toFixed(2)">
           <button type="button" class="btn btn-link btn-copy" (click)="copyText('unitPriceValue')">
             <i class="fa fa-copy"></i>
           </button>
@@ -89,9 +102,12 @@
 
       <div class="row">
         <div class="col-5 text-right">Impuesto</div>
-        <div class="col"><span id="taxesLabel">{{ results.unitTaxes | formatPrice:currency }}</span></div>
+        <div class="col">
+            <span id="taxesLabel">{{ results[0].unitTaxes | formatPrice:currency }}</span>
+            <span *ngIf="results[1]">&nbsp;({{ results[1].unitTaxes | formatPrice:'$' }})</span>
+        </div>
         <div class="col-auto">
-          <input type="text" id="taxesValue" class="noshow" [value]="results.unitTaxes.toFixed(2)">
+          <input type="text" id="taxesValue" class="noshow" [value]="results[0].unitTaxes.toFixed(2)">
           <button type="button" class="btn btn-link btn-copy" (click)="copyText('taxesValue')">
             <i class="fa fa-copy"></i>
           </button>
@@ -100,9 +116,12 @@
 
       <div class="row">
         <div class="col-5 text-right">Ganancia</div>
-        <div class="col"><span id="productProfitLabel">{{ results.productProfit | formatPrice:currency }}</span></div>
+        <div class="col">
+            <span id="productProfitLabel">{{ results[0].productProfit | formatPrice:currency }}</span>
+            <span *ngIf="results[1]">&nbsp;({{ results[1].productProfit | formatPrice:'$' }})</span>
+        </div>
         <div class="col-auto">
-          <input type="text" id="productProfitValue" class="noshow" [value]="results.productProfit.toFixed(2)">
+          <input type="text" id="productProfitValue" class="noshow" [value]="results[0].productProfit.toFixed(2)">
           <button type="button" class="btn btn-link btn-copy" (click)="copyText('productProfitValue')">
             <i class="fa fa-copy"></i>
           </button>
@@ -111,9 +130,12 @@
 
       <div class="row">
         <div class="col-5 text-right">Precio Venta</div>
-        <div class="col"><span id="salesPriceLabel">{{ results.salesPrice | formatPrice:currency }}</span></div>
+        <div class="col">
+            <span id="salesPriceLabel">{{ results[0].salesPrice | formatPrice:currency }}</span>
+            <span *ngIf="results[1]">&nbsp;({{ results[1].salesPrice | formatPrice:'$' }})</span>
+        </div>
         <div class="col-auto">
-          <input type="text" id="salesPriceValue" class="noshow" [value]="results.salesPrice.toFixed(2)">
+          <input type="text" id="salesPriceValue" class="noshow" [value]="results[0].salesPrice.toFixed(2)">
           <button type="button" class="btn btn-link btn-copy" (click)="copyText('salesPriceValue')">
             <i class="fa fa-copy"></i>
           </button>
@@ -123,7 +145,8 @@
     </fieldset>
 
     <div class="buttons">
-      <button id="btn-calculate" type="submit" class="btn btn-primary btn-block" [disabled]="form.invalid">Calcular</button>
+      <button id="btn-calculate" type="submit" class="btn btn-primary btn-block"
+        [disabled]="form.invalid">Calcular</button>
       <button id="btn-reset" type="button" (click)="reset()" class="btn btn-light btn-block">Borrar</button>
     </div>
 
